@@ -127,7 +127,14 @@
 
     .hidden { display: none; }
 
-    /* ========= MESSAGE ========= */
+    /* ========= Login Center ========= */
+    #login { margin-top: 80px; }
+    #login input { text-align: center; font-size: 18px; }
+
+    @media (max-width: 600px) {
+        #login { margin-top: 140px; }
+    }
+
     #msg {
         margin-top: 10px;
         text-align: center;
@@ -155,7 +162,6 @@
 <div id="login" class="card">
   <h3>เข้าสู่ระบบ</h3>
   <input id="loginPhone" placeholder="กรอกเบอร์โทรที่ใช้สมัคร">
-  <input id="loginPass" type="password" placeholder="รหัสผ่าน">
   <button class="primary" onclick="doLogin()">เข้าสู่ระบบ</button>
 </div>
 
@@ -165,7 +171,7 @@
   <input id="regFirst" placeholder="ชื่อจริง">
   <input id="regLast" placeholder="นามสกุล">
   <input id="regPhone" placeholder="เบอร์โทรศัพท์">
-  <input id="regPass" type="password" placeholder="รหัสผ่าน (อย่างน้อย 6 ตัว)">
+  <input id="regPass" type="hidden" value="123456">
   <button class="primary" onclick="doRegister()">สมัครสมาชิก</button>
 </div>
 
@@ -211,7 +217,163 @@
 </div>
 
 <script>
-/* ใช้สคริปต์ Firebase ของคุณเหมือนเดิมทุกบรรทัด */
+
+/* ============= Firebase Init ============= */
+const firebaseConfig = {
+  apiKey: "AIzaSyDHFWASPvDnldxouO9nokECom43qKhCjKQ",
+  authDomain: "bottle-sorting.firebaseapp.com",
+  projectId: "bottle-sorting",
+  storageBucket: "bottle-sorting.firebasestorage.app",
+  messagingSenderId: "408690983994",
+  appId: "1:408690983994:web:2a39242b45e8ca29062103",
+  measurementId: "G-2PS2FXXVKT"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+const DEFAULT_PASS = "123456";
+
+/* ============= UI helper ============= */
+function showPage(p) {
+  ["login","register","dashboard","change"].forEach(id=>{
+    document.getElementById(id).classList.add("hidden");
+    document.getElementById("btn"+id.charAt(0).toUpperCase()+id.slice(1)).classList.remove("active");
+  });
+  document.getElementById(p).classList.remove("hidden");
+  document.getElementById("btn"+p.charAt(0).toUpperCase()+p.slice(1)).classList.add("active");
+}
+
+function showMsg(t,color="red") {
+  const m = document.getElementById("msg");
+  m.style.color = color;
+  m.innerText = t;
+}
+
+/* ============= Convert phone to email ============= */
+function phoneToEmail(phone) {
+  return phone + "@phone.local";
+}
+
+/* ============= Register ============= */
+async function doRegister() {
+  let f = regFirst.value.trim();
+  let l = regLast.value.trim();
+  let p = regPhone.value.trim();
+
+  if (!f || !l || !p) return showMsg("กรอกข้อมูลให้ครบ");
+
+  let email = phoneToEmail(p);
+
+  try {
+    await auth.createUserWithEmailAndPassword(email, DEFAULT_PASS);
+
+    await db.collection("users").doc(auth.currentUser.uid).set({
+      firstName: f,
+      lastName: l,
+      phone: p,
+      bottles: { plastic:0, glass:0, al:0 },
+      points: 0
+    });
+
+    showMsg("สมัครสำเร็จ!", "green");
+    auth.signOut();
+    showPage("login");
+
+  } catch(e) {
+    showMsg(e.message);
+  }
+}
+
+/* ============= Login (Phone Only) ============= */
+async function doLogin() {
+  let p = loginPhone.value.trim();
+  if (!p) return showMsg("กรอกเบอร์โทร");
+
+  let email = phoneToEmail(p);
+
+  try {
+    await auth.signInWithEmailAndPassword(email, DEFAULT_PASS);
+    showMsg("เข้าสู่ระบบสำเร็จ!", "green");
+  } catch(e) {
+    showMsg("ไม่พบเบอร์นี้ในระบบ", "red");
+  }
+}
+
+/* ============= Logout ============= */
+function logout() {
+  auth.signOut();
+  showMsg("ออกจากระบบแล้ว", "green");
+  showPage("login");
+  btnLogout.style.display = "none";
+}
+
+/* ============= Auth State ============= */
+auth.onAuthStateChanged(async user => {
+  if (user) {
+    btnLogout.style.display = "inline-block";
+    loadUserData();
+    showPage("dashboard");
+  }
+});
+
+/* ============= Load user data ============= */
+let userData = null;
+
+async function loadUserData() {
+  const doc = await db.collection("users").doc(auth.currentUser.uid).get();
+  userData = doc.data();
+
+  dbName.value = userData.firstName + " " + userData.lastName;
+  dbPhone.value = userData.phone;
+  dbPoints.value = userData.points;
+  plasticCount.innerText = userData.bottles.plastic;
+  glassCount.innerText = userData.bottles.glass;
+  alCount.innerText = userData.bottles.al;
+  curPoints.value = userData.points;
+}
+
+/* ============= Add bottles ============= */
+const POINT_PLASTIC = 12;
+const POINT_GLASS = 6;
+const POINT_AL = 50;
+
+async function addBottle(type) {
+  userData.bottles[type]++;
+  userData.points =
+    userData.bottles.plastic * POINT_PLASTIC +
+    userData.bottles.glass * POINT_GLASS +
+    userData.bottles.al * POINT_AL;
+
+  await db.collection("users").doc(auth.currentUser.uid).set(userData);
+
+  loadUserData();
+  showMsg("เพิ่ม " + type + " สำเร็จ", "green");
+}
+
+/* ============= Redeem ============= */
+async function redeem() {
+  let use = parseInt(redeemPoint.value);
+  let prompt = redeemPrompt.value.trim();
+
+  if (!use || !prompt) return showMsg("กรอกข้อมูลให้ครบ");
+  if (use > userData.points) return showMsg("คะแนนไม่พอ");
+
+  userData.points -= use;
+  await db.collection("users").doc(auth.currentUser.uid).set(userData);
+
+  await db.collection("redeem").add({
+    uid: auth.currentUser.uid,
+    points: use,
+    promptpay: prompt,
+    status: "pending",
+    created: firebase.firestore.FieldValue.serverTimestamp()
+  });
+
+  showMsg("ส่งคำขอแลกคะแนนสำเร็จ!", "green");
+  loadUserData();
+}
 </script>
 
 </body>
