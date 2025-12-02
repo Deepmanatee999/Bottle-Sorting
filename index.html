@@ -11,25 +11,128 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
 <style>
-    body { font-family: Arial; padding: 0; margin:0; background:#f4f6fa; }
-    header { background:#2563eb; padding:12px 18px; color:#fff; display:flex;
-      justify-content: space-between; align-items:center; }
-    nav button { margin-left:8px; padding:6px 12px; border:none; border-radius:6px;
-      cursor:pointer; background:#fff2; color:#fff; }
-    nav button.active { background:#fff; color:#2563eb; }
+    /* ========= GLOBAL DARK MODE ========= */
+    body {
+        font-family: Arial;
+        background: #0f1115;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+    }
 
+    /* ========= TOP NAV ========= */
+    header {
+        background: #111318;
+        padding: 16px 26px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #0bbf9a;
+    }
+
+    h2 {
+        font-weight: bold;
+        font-size: 20px;
+        margin: 0;
+        color: #0bbf9a;
+    }
+
+    nav button {
+        background: transparent;
+        border: 1px solid #0bbf9a33;
+        color: #0bbf9a;
+        padding: 8px 16px;
+        margin-left: 8px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    nav button.active,
+    nav button:hover {
+        background: #0bbf9a;
+        color: #000;
+    }
+
+    #btnLogout {
+        background: #f44336;
+        border: none;
+        color: white;
+    }
+    #btnLogout:hover {
+        background: #ff7961;
+    }
+
+    /* ========= CARD ========= */
     .card {
-      width:90%; max-width:450px; margin:20px auto; padding:20px; background:#fff;
-      border-radius:10px; box-shadow:0 4px 10px #0002;
+        width: 90%;
+        max-width: 480px;
+        background: #181b20;
+        padding: 30px;
+        margin: 40px auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 18px #0007;
     }
-    input { width:100%; padding:10px; margin-top:8px;
-       border:1px solid #ccc; border-radius:6px; }
+
+    h3 {
+        font-size: 26px;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #0bbf9a;
+        text-decoration: underline;
+        text-underline-offset: 6px;
+    }
+
+    /* ========= INPUT ========= */
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 10px;
+        border: 1px solid #2f3135;
+        border-radius: 6px;
+        background: #111318;
+        color: #fff;
+        font-size: 15px;
+    }
+    input:focus {
+        outline: 1px solid #0bbf9a;
+    }
+
+    /* ========= BUTTON ========= */
     button.primary {
-       width:100%; padding:10px; background:#2563eb; color:#fff;
-       border:none; border-radius:6px; margin-top:12px; cursor:pointer;
+        width: 100%;
+        padding: 12px;
+        margin-top: 16px;
+        background: #0bbf9a;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        color: #000;
+        cursor: pointer;
+        transition: 0.2s;
     }
-    .hidden { display:none; }
-    .stat-box { background:#f9fafb; padding:12px; border-radius:8px; margin-top:8px; }
+    button.primary:hover {
+        background: #0de7b8;
+    }
+
+    /* ========= STAT BOX ========= */
+    .stat-box {
+        background: #111318;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 12px;
+        color: #eee;
+        border: 1px solid #0bbf9a33;
+    }
+
+    .hidden { display: none; }
+
+    /* ========= MESSAGE ========= */
+    #msg {
+        margin-top: 10px;
+        text-align: center;
+        font-size: 14px;
+    }
 </style>
 </head>
 
@@ -46,42 +149,42 @@
   </nav>
 </header>
 
-<div id="msg" style="text-align:center; color:red; margin-top:10px;"></div>
+<div id="msg"></div>
 
 <!-- LOGIN -->
 <div id="login" class="card">
-  <h3>Login</h3>
-  <input id="loginPhone" placeholder="Phone number (ex. 0931234567)">
-  <input id="loginPass" type="password" placeholder="Password">
-  <button class="primary" onclick="doLogin()">Login</button>
+  <h3>เข้าสู่ระบบ</h3>
+  <input id="loginPhone" placeholder="กรอกเบอร์โทรที่ใช้สมัคร">
+  <input id="loginPass" type="password" placeholder="รหัสผ่าน">
+  <button class="primary" onclick="doLogin()">เข้าสู่ระบบ</button>
 </div>
 
 <!-- REGISTER -->
 <div id="register" class="card hidden">
-  <h3>Register</h3>
-  <input id="regFirst" placeholder="First Name">
-  <input id="regLast" placeholder="Last Name">
-  <input id="regPhone" placeholder="Phone Number (ex. 0931234567)">
-  <input id="regPass" type="password" placeholder="Password (min 6 chars)">
-  <button class="primary" onclick="doRegister()">Register</button>
+  <h3>สมัครสมาชิก</h3>
+  <input id="regFirst" placeholder="ชื่อจริง">
+  <input id="regLast" placeholder="นามสกุล">
+  <input id="regPhone" placeholder="เบอร์โทรศัพท์">
+  <input id="regPass" type="password" placeholder="รหัสผ่าน (อย่างน้อย 6 ตัว)">
+  <button class="primary" onclick="doRegister()">สมัครสมาชิก</button>
 </div>
 
 <!-- DASHBOARD -->
 <div id="dashboard" class="card hidden">
   <h3>Dashboard</h3>
 
-  <label>Full Name</label>
+  <label>ชื่อ-นามสกุล</label>
   <input id="dbName" disabled>
 
-  <label>Phone</label>
+  <label>เบอร์โทร</label>
   <input id="dbPhone" disabled>
 
-  <label>Total Points</label>
+  <label>คะแนนสะสม</label>
   <input id="dbPoints" disabled>
 
   <div class="stat-box">
     <b>Plastic Bottle</b><br>
-    Count: <span id="plasticCount">0</span>  
+    Count: <span id="plasticCount">0</span>
     <button class="primary" onclick="addBottle('plastic')">+1 Plastic</button>
   </div>
 
@@ -100,181 +203,16 @@
 
 <!-- CHANGE POINT -->
 <div id="change" class="card hidden">
-  <h3>Change Point → Money</h3>
+  <h3>แลกคะแนนเป็นเงิน</h3>
   <input id="curPoints" disabled>
-  <input id="redeemPoint" type="number" placeholder="Points to redeem">
+  <input id="redeemPoint" type="number" placeholder="จำนวนคะแนนที่ต้องการแลก">
   <input id="redeemPrompt" placeholder="PromptPay ID">
-  <button class="primary" onclick="redeem()">Redeem</button>
+  <button class="primary" onclick="redeem()">ยืนยันแลกคะแนน</button>
 </div>
 
 <script>
-// ------------------------------------------------
-// Firebase Init
-// ------------------------------------------------
-const firebaseConfig = {
-  apiKey: "AIzaSyDHFWASPvDnldxouO9nokECom43qKhCjKQ",
-  authDomain: "bottle-sorting.firebaseapp.com",
-  projectId: "bottle-sorting",
-  storageBucket: "bottle-sorting.firebasestorage.app",
-  messagingSenderId: "408690983994",
-  appId: "1:408690983994:web:2a39242b45e8ca29062103",
-  measurementId: "G-2PS2FXXVKT"
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-// ------------------------------------------------
-// UI helper
-// ------------------------------------------------
-function showPage(p) {
-  ["login","register","dashboard","change"].forEach(id=>{
-    document.getElementById(id).classList.add("hidden");
-    document.getElementById("btn"+id.charAt(0).toUpperCase()+id.slice(1)).classList.remove("active");
-  });
-  document.getElementById(p).classList.remove("hidden");
-  document.getElementById("btn"+p.charAt(0).toUpperCase()+p.slice(1)).classList.add("active");
-}
-
-function showMsg(t,color="red") {
-  const m = document.getElementById("msg");
-  m.style.color = color;
-  m.innerText = t;
-}
-
-// ------------------------------------------------
-// Convert phone to email
-// ------------------------------------------------
-function phoneToEmail(phone) {
-  return phone + "@phone.local";
-}
-
-// ------------------------------------------------
-// Authentication
-// ------------------------------------------------
-async function doRegister() {
-  let f = regFirst.value.trim();
-  let l = regLast.value.trim();
-  let p = regPhone.value.trim();
-  let pass = regPass.value;
-
-  if (!f || !l || !p || !pass) return showMsg("กรอกข้อมูลให้ครบ");
-  if (pass.length < 6) return showMsg("Password ต้องมากกว่า 6 ตัว");
-
-  let email = phoneToEmail(p);
-
-  try {
-    await auth.createUserWithEmailAndPassword(email, pass);
-    await db.collection("users").doc(auth.currentUser.uid).set({
-      firstName: f,
-      lastName: l,
-      phone: p,
-      bottles: { plastic:0, glass:0, al:0 },
-      points: 0
-    });
-    showMsg("Register สำเร็จ!", "green");
-    showPage("login");
-  } catch(e) {
-    showMsg(e.message);
-  }
-}
-
-async function doLogin() {
-  let p = loginPhone.value.trim();
-  let pass = loginPass.value;
-  if (!p || !pass) return showMsg("กรอกเบอร์และรหัสผ่าน");
-
-  let email = phoneToEmail(p);
-
-  try {
-    await auth.signInWithEmailAndPassword(email, pass);
-    showMsg("Login สำเร็จ!", "green");
-  } catch(e) {
-    showMsg("Login ไม่สำเร็จ: " + e.message);
-  }
-}
-
-function logout() {
-  auth.signOut();
-  showMsg("Logout สำเร็จ", "green");
-  showPage("login");
-  btnLogout.style.display = "none";
-}
-
-// ------------------------------------------------
-// Auth State
-// ------------------------------------------------
-auth.onAuthStateChanged(async user => {
-  if (user) {
-    btnLogout.style.display = "inline-block";
-    loadUserData();
-    showPage("dashboard");
-  }
-});
-
-// ------------------------------------------------
-// Load user data
-// ------------------------------------------------
-let userData = null;
-
-async function loadUserData() {
-  const doc = await db.collection("users").doc(auth.currentUser.uid).get();
-  userData = doc.data();
-
-  dbName.value = userData.firstName + " " + userData.lastName;
-  dbPhone.value = userData.phone;
-  dbPoints.value = userData.points;
-  plasticCount.innerText = userData.bottles.plastic;
-  glassCount.innerText = userData.bottles.glass;
-  alCount.innerText = userData.bottles.al;
-  curPoints.value = userData.points;
-}
-
-// ------------------------------------------------
-// Add bottle
-// ------------------------------------------------
-const POINT_PLASTIC = 12;
-const POINT_GLASS = 6;
-const POINT_AL = 50;
-
-async function addBottle(type) {
-  userData.bottles[type]++;
-  userData.points =
-    userData.bottles.plastic * POINT_PLASTIC +
-    userData.bottles.glass * POINT_GLASS +
-    userData.bottles.al * POINT_AL;
-
-  await db.collection("users").doc(auth.currentUser.uid).set(userData);
-
-  loadUserData();
-  showMsg("เพิ่ม " + type + " สำเร็จ", "green");
-}
-
-// ------------------------------------------------
-// Redeem points
-// ------------------------------------------------
-async function redeem() {
-  let use = parseInt(redeemPoint.value);
-  let prompt = redeemPrompt.value.trim();
-
-  if (!use || !prompt) return showMsg("กรอกข้อมูลให้ครบ");
-  if (use > userData.points) return showMsg("คะแนนไม่พอ");
-
-  userData.points -= use;
-  await db.collection("users").doc(auth.currentUser.uid).set(userData);
-
-  await db.collection("redeem").add({
-    uid: auth.currentUser.uid,
-    points: use,
-    promptpay: prompt,
-    status: "pending",
-    created: firebase.firestore.FieldValue.serverTimestamp()
-  });
-
-  showMsg("ส่งคำขอแลกคะแนนสำเร็จ!", "green");
-  loadUserData();
-}
+/* ใช้สคริปต์ Firebase ของคุณเหมือนเดิมทุกบรรทัด */
 </script>
+
 </body>
 </html>
