@@ -1,0 +1,140 @@
+body {
+    font-family: 'Prompt', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #e6e6e6; /* สีพื้นหลังหลักของ Body */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.container-ex {
+    width: 100%;
+    max-width: 400px; /* จำกัดความกว้าง */
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    overflow: hidden;
+}
+
+/* --- 1. ส่วนหัว (Header) --- */
+.header-ex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 20px 80px 20px;
+    background: linear-gradient(to bottom, #d6f5ff, #80d9ff); /* Gradient เดียวกับหน้าแรก */
+    position: relative;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-bottom: 20px; /* เพิ่มระยะห่างด้านล่าง */
+}
+.header-text-ex { color: #004d40; }
+.greeting-ex { font-size: 1.2em; font-weight: 300; }
+.name-ex { font-size: 1.8em; font-weight: 600; margin-top: 5px; }
+.recycle-icon-ex { font-size: 4em; line-height: 1; color: #4CAF50; filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2)); }
+
+/* --- 2. ส่วนตารางสรุป (Summary Card) --- */
+.summary-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin: -50px 20px 30px 20px; /* ดึงขึ้นไปทับส่วนหัว */
+    position: relative;
+    z-index: 10;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.1em;
+    text-align: left;
+}
+
+.summary-table thead th {
+    font-weight: 600;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #ccc;
+    color: #333;
+}
+
+.summary-table tbody td {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.summary-table tfoot td {
+    padding: 15px 0 5px 0;
+    font-weight: 700;
+    border-top: 2px solid #333;
+    color: #333;
+}
+
+/* จัดตำแหน่งตัวเลข */
+.col-count, .col-price {
+    text-align: center;
+    width: 30%;
+}
+.col-type {
+    width: 40%;
+}
+
+/* --- 3. ส่วนกรอกหมายเลขพร้อมเพย์ --- */
+.promptpay-section {
+    padding: 0 20px 30px 20px;
+}
+
+.promptpay-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.promptpay-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 1.1em;
+    box-sizing: border-box; /* สำคัญเพื่อให้ padding อยู่ด้านใน */
+}
+
+/* --- 4. ปุ่ม (Buttons) --- */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px 20px 20px;
+}
+
+.btn-back, .btn-exchange {
+    padding: 15px;
+    width: 48%;
+    font-size: 1.2em;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-back {
+    background-color: #000; /* สีดำสำหรับย้อนกลับ */
+    color: #fff;
+}
+
+.btn-exchange {
+    background-color: #2196F3; /* สีน้ำเงินสำหรับแลกเงิน */
+    color: #fff;
+}
+
+.btn-back:hover {
+    background-color: #333;
+}
+
+.btn-exchange:hover {
+    background-color: #0d8bf2;
+}
