@@ -2,13 +2,14 @@ body {
     font-family: 'Prompt', sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #e6e6e6;
+    background-color: #e6e6e6; 
     display: flex;
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
 }
 
+/* ใช้สำหรับหน้า index.html */
 .container {
     width: 100%;
     max-width: 400px;
@@ -19,12 +20,23 @@ body {
     overflow: hidden;
 }
 
-/* --- 1. ส่วนหัว (Header) --- */
+/* ใช้สำหรับหน้า exchange_confirmation.html */
+.container-ex {
+    width: 100%;
+    max-width: 400px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    overflow: hidden;
+}
+
+/* --- ส่วนหัว (ใช้ร่วมกัน) --- */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 20px 80px 20px;
+    padding: 30px 20px 80px 20px; 
     background: linear-gradient(to bottom, #d6f5ff, #80d9ff);
     position: relative;
     border-bottom-left-radius: 10px;
@@ -35,12 +47,12 @@ body {
 .name { font-size: 1.8em; font-weight: 600; margin-top: 5px; }
 .recycle-icon { font-size: 4em; line-height: 1; color: #4CAF50; filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2)); }
 
-/* --- 2. สถิติการรีไซเคิล (Recycling Stats) --- */
+/* --- 1. สถิติการรีไซเคิล (Recycling Stats) - สำหรับ index.html เท่านั้น --- */
 .recycling-stats {
     display: flex;
     justify-content: space-around;
     padding: 0 10px;
-    margin-top: -50px;
+    margin-top: -50px; 
     margin-bottom: 30px;
     position: relative;
     z-index: 10;
@@ -62,14 +74,13 @@ body {
     border-radius: 10px;
     margin-bottom: 5px;
 }
-.glass-bottle .icon-placeholder { background-color: #ff9800; } /* ส้ม */
-.plastic-bottle .icon-placeholder { background-color: #ffffff; border: 1px solid #ccc; } /* ขาว */
-.can .icon-placeholder { background-color: #2196F3; } /* น้ำเงิน */
-
+.glass-bottle .icon-placeholder { background-color: #ff9800; }
+.plastic-bottle .icon-placeholder { background-color: #ffffff; border: 1px solid #ccc; }
+.can .icon-placeholder { background-color: #2196F3; }
 .count {
     font-size: 1.5em;
     font-weight: 700;
-    color: #333; /* สีเข้ม */
+    color: #333;
     padding: 5px 0;
     width: 100%;
     margin-top: 5px;
@@ -77,7 +88,7 @@ body {
     border-radius: 5px;
 }
 
-/* --- 3. คะแนนสะสมและแลกเงิน (Point Exchange) --- */
+/* --- 2. คะแนนสะสมและแลกเงิน (Point Exchange) - สำหรับ index.html เท่านั้น --- */
 .point-exchange-section {
     display: flex;
     justify-content: space-between;
@@ -85,7 +96,7 @@ body {
     padding: 20px;
     margin: 0 20px 30px 20px;
     border-radius: 15px;
-    background: linear-gradient(to right, #00BCD4, #009688);
+    background: linear-gradient(to right, #00BCD4, #009688); 
     color: white;
     box-shadow: 0 4px 10px rgba(0, 150, 136, 0.4);
 }
@@ -94,8 +105,8 @@ body {
 .exchange-button {
     width: 100px;
     height: 100px;
-    border-radius: 50%;
-    background-color: #64B5F6;
+    border-radius: 50%; 
+    background-color: #64B5F6; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,37 +115,32 @@ body {
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     flex-shrink: 0;
+    color: white; /* สีตัวอักษรสำหรับปุ่มที่เป็น <a> */
+    text-decoration: none; /* ลบขีดเส้นใต้ของ <a> */
 }
 
-/* ... (โค้ด CSS ส่วนบนที่ไม่เปลี่ยนแปลง) ... */
-
-/* --- 4. อัตราการแลกเปลี่ยน (Rate Section) --- */
+/* --- 3. อัตราการแลกเปลี่ยน (Rate Section) - สำหรับ index.html เท่านั้น --- */
 .rate-section {
     padding: 20px;
     background-color: #f7f7f7;
     margin: 0 0 20px 0;
     border-radius: 15px;
 }
-
 .rate-title {
-    font-size: 1.1em; /* ลดขนาดฟอนต์ของหัวข้อหลัก */
+    font-size: 1.1em;
     font-weight: 600;
     color: #333;
-    margin-bottom: 5px; /* ลดระยะห่างด้านล่าง */
-    padding-bottom: 5px; /* ลด padding */
-    /* เอา border-bottom ออก เพื่อความเรียบง่าย */
+    margin-bottom: 5px;
+    padding-bottom: 5px;
 }
-
-/* เพิ่มส่วนสำหรับคำอธิบายอัตราแลกเปลี่ยน (100 แต้ม = 1 บาท) */
 .rate-subtitle {
-    font-size: 0.9em; /* ลดขนาดฟอนต์ของข้อความนี้เป็นพิเศษ */
+    font-size: 0.9em; 
     font-weight: 500;
-    color: #009688; /* ใช้สีเขียวเพื่อเน้น */
+    color: #009688; 
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #ddd; /* เพิ่มเส้นแบ่งกลับมาที่ส่วนนี้ */
+    border-bottom: 2px solid #ddd; 
 }
-
 .rate-item {
     display: flex;
     justify-content: space-between;
@@ -142,8 +148,114 @@ body {
     font-size: 1.1em;
     color: #555;
 }
-
 .item-rate {
     font-weight: 600;
     color: #009688;
+}
+
+/* ========================================================== */
+/* --- สไตล์สำหรับหน้ายืนยันการแลกเงิน (exchange_confirmation.html) --- */
+/* ========================================================== */
+
+/* ปรับ Header บนหน้า Exchange ให้มีระยะห่างน้อยกว่า */
+.container-ex .header {
+    margin-bottom: 20px;
+}
+
+/* --- 4. ตารางสรุป (Summary Card) --- */
+.summary-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin: -50px 20px 30px 20px; 
+    position: relative;
+    z-index: 10;
+}
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.1em;
+    text-align: left;
+}
+.summary-table thead th {
+    font-weight: 600;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #ccc;
+    color: #333;
+}
+.summary-table tbody td {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+.summary-table tfoot td {
+    padding: 15px 0 5px 0;
+    font-weight: 700;
+    border-top: 2px solid #333;
+    color: #333;
+}
+.col-count, .col-price {
+    text-align: center;
+    width: 30%;
+}
+.col-type {
+    width: 40%;
+}
+
+/* --- 5. ส่วนกรอกหมายเลขพร้อมเพย์ --- */
+.promptpay-section {
+    padding: 0 20px 30px 20px;
+}
+.promptpay-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+.promptpay-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 1.1em;
+    box-sizing: border-box;
+}
+
+/* --- 6. ปุ่ม (Buttons) --- */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px 20px 20px;
+}
+/* ใช้คลาสร่วมกันสำหรับปุ่มทั้งสอง */
+.btn-back, .btn-exchange {
+    padding: 15px;
+    width: 48%;
+    font-size: 1.2em;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center; 
+    text-decoration: none; /* ลบขีดเส้นใต้สำหรับ <a> (ย้อนกลับ) */
+    display: inline-block; 
+}
+
+.btn-back {
+    background-color: #000; 
+    color: #fff;
+}
+
+.btn-exchange {
+    background-color: #2196F3; 
+    color: #fff;
+}
+
+.btn-back:hover {
+    background-color: #333;
+}
+
+.btn-exchange:hover {
+    background-color: #0d8bf2;
 }
