@@ -1,0 +1,183 @@
+body {
+    font-family: 'Prompt', sans-serif; /* ใช้ Font Prompt */
+    margin: 0;
+    padding: 20px;
+    background-color: #e6e6e6; /* สีพื้นหลังหลักของ Body */
+    display: flex;
+    justify-content: center; /* จัดให้อยู่ตรงกลางหน้าจอ */
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px; /* จำกัดความกว้างให้ดูเหมือนแอปมือถือ */
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    overflow: hidden; /* ป้องกัน Gradient เลยขอบ */
+}
+
+/* --- 1. ส่วนหัว (Header) --- */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 20px 80px 20px; /* เพิ่ม padding ด้านล่างให้พื้นที่ว่าง */
+    /* ใช้ Gradient ที่ดูคล้ายต้นฉบับ */
+    background: linear-gradient(to bottom, #d6f5ff, #80d9ff);
+    position: relative;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.header-text {
+    color: #004d40; /* สีเข้มสำหรับตัวอักษร */
+}
+
+.greeting {
+    font-size: 1.2em;
+    font-weight: 300;
+}
+
+.name {
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.recycle-icon {
+    font-size: 4em;
+    line-height: 1; /* ปรับให้ไอคอนอยู่กึ่งกลาง */
+    color: #4CAF50;
+    /* จำลองไอคอนรีไซเคิล */
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+}
+
+/* --- 2. สถิติการรีไซเคิล (Recycling Stats) --- */
+
+.recycling-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 10px;
+    margin-top: -50px; /* ดึงขึ้นไปทับส่วนหัว */
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 10;
+}
+
+.stat-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    width: 80px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon-placeholder {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+/* จัดสีและรูปทรงของไอคอนตามภาพต้นฉบับ */
+.glass-bottle .icon-placeholder {
+    background-color: #ff9800; /* สีส้ม */
+}
+.plastic-bottle .icon-placeholder {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+}
+.can .icon-placeholder {
+    background-color: #2196F3; /* สีน้ำเงิน */
+}
+
+.count {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #333;
+    padding: 5px 0;
+    width: 100%;
+    margin-top: 5px;
+    background-color: #f0f0f0; /* พื้นหลังตัวเลข */
+    border-radius: 5px;
+}
+
+/* --- 3. คะแนนสะสมและแลกเงิน (Point Exchange) --- */
+
+.point-exchange-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin: 0 20px 30px 20px;
+    border-radius: 15px;
+    /* สีฟ้าเขียว Gradient */
+    background: linear-gradient(to right, #00BCD4, #009688); 
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 150, 136, 0.4);
+}
+
+.points-display {
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+.points-text strong {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-left: 5px;
+}
+
+.exchange-button {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* วงกลม */
+    background-color: #64B5F6; /* สีน้ำเงินอ่อน */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.1em;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0; /* ป้องกันการหดตัว */
+}
+
+/* --- 4. อัตราการแลกเปลี่ยน (Rate Section) --- */
+
+.rate-section {
+    padding: 20px;
+    background-color: #f7f7f7;
+    margin: 0 0 20px 0;
+    border-radius: 15px;
+}
+
+.rate-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+.rate-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.item-rate {
+    font-weight: 600;
+    color: #009688; /* สีเขียวให้ดูเด่น */
+}
