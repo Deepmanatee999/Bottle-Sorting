@@ -102,6 +102,7 @@ body {
     font-size: 1.1em;
     box-sizing: border-box; /* สำคัญเพื่อให้ padding อยู่ด้านใน */
 }
+/* ... (โค้ด CSS ส่วนบนที่ไม่เปลี่ยนแปลง) ... */
 
 /* --- 4. ปุ่ม (Buttons) --- */
 .action-buttons {
@@ -110,6 +111,7 @@ body {
     padding: 0 20px 20px 20px;
 }
 
+/* ใช้คลาสร่วมกันสำหรับปุ่มทั้งสอง */
 .btn-back, .btn-exchange {
     padding: 15px;
     width: 48%;
@@ -119,6 +121,9 @@ body {
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
+    text-align: center; /* จัดให้อยู่ตรงกลางสำหรับ <a> */
+    text-decoration: none; /* ลบขีดเส้นใต้ของลิงก์ */
+    display: inline-block; /* ทำให้ <a> ประพฤติตัวเหมือน block เพื่อกำหนดความกว้าง/สูง */
 }
 
 .btn-back {
