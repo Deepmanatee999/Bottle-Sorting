@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน้ายืนยันการแลกเงิน (Exchange Confirmation)</title>
+    <link rel="stylesheet" href="exchange_styles.css"> <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+    </style>
+</head>
+<body>
+
+    <div class="container-ex">
+        <header class="header-ex">
+            <div class="header-text-ex">
+                <div class="greeting-ex">สวัสดี</div>
+                <div class="name-ex">นายยยย</div>
+            </div>
+            <div class="recycle-icon-ex">
+                ♻️
+            </div>
+        </header>
+
+        <div class="summary-card">
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th class="col-type">ประเภท</th>
+                        <th class="col-count">จำนวน</th>
+                        <th class="col-price">ราคา</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-type">ขวดแก้ว</td>
+                        <td class="col-count">6</td>
+                        <td class="col-price">20</td>
+                    </tr>
+                    <tr>
+                        <td class="col-type">ขวดพลาสติก</td>
+                        <td class="col-count">8</td>
+                        <td class="col-price">16</td>
+                    </tr>
+                    <tr>
+                        <td class="col-type">กระป๋อง</td>
+                        <td class="col-count">4</td>
+                        <td class="col-price">2</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="col-type">ยอดรวม</td>
+                        <td class="col-count">18</td>
+                        <td class="col-price">38</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="promptpay-section">
+            <div class="promptpay-title">กรอกหมายเลขพร้อมเพย์</div>
+            <input type="text" class="promptpay-input" placeholder="ตัวอย่าง: 08XXXXXXXX">
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn-back">ย้อนกลับ</button>
+            <button class="btn-exchange">แลกเงิน</button>
+        </div>
+    </div>
+
+</body>
+</html>
