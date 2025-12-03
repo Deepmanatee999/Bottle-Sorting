@@ -106,6 +106,8 @@ body {
     flex-shrink: 0;
 }
 
+/* ... (โค้ด CSS ส่วนบนที่ไม่เปลี่ยนแปลง) ... */
+
 /* --- 4. อัตราการแลกเปลี่ยน (Rate Section) --- */
 .rate-section {
     padding: 20px;
@@ -113,14 +115,26 @@ body {
     margin: 0 0 20px 0;
     border-radius: 15px;
 }
+
 .rate-title {
-    font-size: 1.2em;
+    font-size: 1.1em; /* ลดขนาดฟอนต์ของหัวข้อหลัก */
     font-weight: 600;
     color: #333;
+    margin-bottom: 5px; /* ลดระยะห่างด้านล่าง */
+    padding-bottom: 5px; /* ลด padding */
+    /* เอา border-bottom ออก เพื่อความเรียบง่าย */
+}
+
+/* เพิ่มส่วนสำหรับคำอธิบายอัตราแลกเปลี่ยน (100 แต้ม = 1 บาท) */
+.rate-subtitle {
+    font-size: 0.9em; /* ลดขนาดฟอนต์ของข้อความนี้เป็นพิเศษ */
+    font-weight: 500;
+    color: #009688; /* ใช้สีเขียวเพื่อเน้น */
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid #ddd; /* เพิ่มเส้นแบ่งกลับมาที่ส่วนนี้ */
 }
+
 .rate-item {
     display: flex;
     justify-content: space-between;
@@ -128,6 +142,7 @@ body {
     font-size: 1.1em;
     color: #555;
 }
+
 .item-rate {
     font-weight: 600;
     color: #009688;
