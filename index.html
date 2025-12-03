@@ -1,1 +1,105 @@
 
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>เข้าสู่ระบบ</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      body {
+        background: #050810;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen w-full text-white flex items-center justify-center px-6">
+    
+    <div class="w-full max-w-md space-y-8">
+      <!-- หัวข้อ -->
+      <div class="text-center">
+        <h1 class="text-3xl font-semibold">เข้าสู่ระบบ</h1>
+        <div class="mt-2 flex justify-center">
+          <span class="h-[3px] w-24 bg-teal-400 rounded-full"></span>
+        </div>
+      </div>
+
+      <!-- ฟอร์ม -->
+      <form class="space-y-5" id="loginForm">
+        <!-- เบอร์โทร -->
+        <div class="space-y-1">
+          <label class="text-sm text-zinc-300">เบอร์โทร</label>
+          <input
+            type="tel"
+            id="phone"
+            placeholder="กรอกเบอร์โทรที่ใช้สมัคร"
+            class="w-full bg-[#111827] px-4 py-3 rounded-lg outline-none placeholder:text-zinc-500"
+          />
+        </div>
+
+        <!-- Error -->
+        <p id="errorMsg" class="text-sm text-red-400 hidden"></p>
+
+        <!-- ปุ่ม -->
+        <button
+          type="submit"
+          id="loginBtn"
+          class="w-full rounded-full bg-teal-500 py-3 font-medium text-black hover:bg-teal-400 transition"
+        >
+          เข้าสู่ระบบ
+        </button>
+      </form>
+
+      <!-- ลิงก์สมัคร -->
+      <p class="text-center text-xs text-zinc-400">
+        ยังไม่มีบัญชี?
+        <a href="/register.html" class="text-teal-400 hover:underline"
+          >สร้างบัญชี</a
+        >
+      </p>
+    </div>
+
+    <!-- Script -->
+    <script>
+      const form = document.getElementById("loginForm");
+      const phoneInput = document.getElementById("phone");
+      const errorMsg = document.getElementById("errorMsg");
+      const loginBtn = document.getElementById("loginBtn");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const phone = phoneInput.value.trim();
+        errorMsg.classList.add("hidden");
+        loginBtn.disabled = true;
+        loginBtn.innerText = "กำลังเข้าสู่ระบบ...";
+
+        try {
+          const res = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ phone }),
+          });
+
+          const data = await res.json().catch(() => ({}));
+
+          if (!res.ok || !data.success) {
+            throw new Error(data.message || "เข้าสู่ระบบไม่สำเร็จ");
+          }
+
+          // Login สำเร็จ → ไป Dashboard
+          window.location.href = "/dashboard.html";
+        } catch (error) {
+          errorMsg.innerText = error.message || "เกิดข้อผิดพลาด";
+          errorMsg.classList.remove("hidden");
+        } finally {
+          loginBtn.disabled = false;
+          loginBtn.innerText = "เข้าสู่ระบบ";
+        }
+      });
+    </script>
+  </body>
+</html>
